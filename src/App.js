@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect } from 'react';
+import {Switch,Route} from 'react-router-dom';
+import Login from './Components/login';
+import Home from './Components/home';
+import Addlocation from './Components/addlocation';
+import ViewLocations from './Components/viewlocations';
 
 function App() {
+  useEffect(()=>{
+    document.body.style.overflowX="hidden";
+  },[])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Switch>
+      <Route exact path="/" component={Login}/>
+      <Route exact path="/dashboard" component={Home}/>
+      <Route exact path="/add-location" component={Addlocation}/>
+      <Route exact path="/view-locations" component={ViewLocations}/>
+     </Switch>
     </div>
   );
 }
