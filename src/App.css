@@ -145,11 +145,11 @@ body.light-mode #sidebar{
 
 @media only screen and (max-width: 600px) {
   .sidecol1{
-    width:22%;
+    width:19%;
   }
   
   .sidecol2{
-    width:80%;
+    width:81%;
   }
   .dashboard{
     font-size: 30px;

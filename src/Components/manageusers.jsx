@@ -14,13 +14,15 @@ import {
 } from "mdb-react-ui-kit";
 import Form from "react-bootstrap/Form";
 
-export default function ViewLocations() {
+export default function Manageusers() {
   const [show, setShow] = useState(false);
   const [submit, setSubmit] = useState(false);
+  const [users, setUsers] = useState([]);
   const [data, setData] = useState([]);
-  const [street, setStreet] = useState("");
-  const [basicModal, setBasicModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [location, setLocation] = useState("");
   const [id, setId] = useState("");
+  const [basicModal, setBasicModal] = useState(false);
   const toggleShow = () => setBasicModal(!basicModal);
 
   useEffect(() => {
@@ -30,15 +32,33 @@ export default function ViewLocations() {
     } else {
       document.body.className = "dark-mode";
     }
+
+    async function getLocations() {
+      await fetch(`http://localhost:4000/getlocations`, {
+        method: "GET",
+        headers: {
+          "api-key": process.env.REACT_APP_API_KEY,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Request failed.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setData(data.data.map((item) => item.street));
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
     getData();
+    getLocations();
   }, []);
 
-  const handleStreet = (event) => {
-    setStreet(event.target.value);
-  };
-
   async function getData() {
-    await fetch(`http://localhost:4000/getlocations`, {
+    await fetch(`http://localhost:4000/getusers`, {
       method: "GET",
       headers: {
         "api-key": process.env.REACT_APP_API_KEY,
@@ -51,7 +71,7 @@ export default function ViewLocations() {
         return response.json();
       })
       .then((data) => {
-        setData(data.data);
+        setUsers(data.data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -59,8 +79,8 @@ export default function ViewLocations() {
   }
 
   async function handleDelete(id) {
-    if (window.confirm("Are you sure you want to delete this location?")) {
-      await fetch(`http://localhost:4000/deletelocation?id=${id}`, {
+    if (window.confirm("Are you sure you want to delete user?")) {
+      await fetch(`http://localhost:4000/deleteuser?id=${id}`, {
         method: "GET",
         headers: {
           "api-key": process.env.REACT_APP_API_KEY,
@@ -83,11 +103,11 @@ export default function ViewLocations() {
     }
   }
 
-  async function UpdateLocation(event) {
+  async function handleUpdate(event) {
     event.preventDefault();
     setSubmit(true);
     await fetch(
-      `http://localhost:4000/updatelocation?street=${street}&id=${id}`,
+      `http://localhost:4000/updateuser?id=${id}&email=${email}&location=${location}`,
       {
         method: "GET",
         headers: {
@@ -102,9 +122,14 @@ export default function ViewLocations() {
         return response.json();
       })
       .then((data) => {
-        if (data.message == "updated") {
-          setSubmit(false);
-          setBasicModal(false);
+        setSubmit(false);
+        setBasicModal(false);
+        if (data.message == "already") {
+          document.getElementById("email-error").innerHTML =
+            "EMAIL ALREADY EXIST";
+          document.getElementById("email-error").style.color = "red";
+          document.getElementById("email-error").style.display = "block";
+        } else if (data.message == "updated") {
           getData();
         }
       })
@@ -112,6 +137,14 @@ export default function ViewLocations() {
         console.error("Error:", error);
       });
   }
+
+  const handleLocation = (event) => {
+    setLocation(event.target.value);
+  };
+
+  const handleEmail = (event) => {
+    setEmail(event.target.value);
+  };
 
   return (
     <div className="siderow">
@@ -128,7 +161,7 @@ export default function ViewLocations() {
               fontWeight: "bolder",
             }}
           >
-            Locations
+            Manage Users
           </h1>
 
           <div
@@ -146,10 +179,13 @@ export default function ViewLocations() {
                     Id
                   </th>
                   <th scope="col" class="px-6 py-3">
-                    Street
+                    Location
                   </th>
                   <th scope="col" class="px-6 py-3">
-                    Dated
+                    Email
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Registered Date
                   </th>
                   <th scope="col" class="px-6 py-3">
                     Edit
@@ -160,7 +196,7 @@ export default function ViewLocations() {
                 </tr>
               </thead>
               <tbody id="tablebody">
-                {data.map((item, index) => (
+                {users.map((user, index) => (
                   <tr class="border-b">
                     <th
                       scope="row"
@@ -168,9 +204,10 @@ export default function ViewLocations() {
                     >
                       {index + 1}
                     </th>
-                    <td class="px-6 py-4">{item.street}</td>
+                    <td class="px-6 py-4">{user.street}</td>
+                    <td class="px-6 py-4">{user.email}</td>
                     <td class="px-6 py-4">
-                      {new Date(item.dated).toLocaleString()}
+                      {new Date(user.dated).toLocaleString()}
                     </td>
                     <td class="px-6 py-4">
                       <a
@@ -178,8 +215,9 @@ export default function ViewLocations() {
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                         onClick={() => {
                           toggleShow();
-                          setStreet(item.street);
-                          setId(item.Id);
+                          setId(user.Id);
+                          setEmail(user.email);
+                          setLocation(user.street);
                         }}
                       >
                         <i
@@ -190,10 +228,10 @@ export default function ViewLocations() {
                     </td>
                     <td class="px-6 py-4">
                       <a
-                        onClick={() => {
-                          handleDelete(item.Id);
-                        }}
                         href="#"
+                        onClick={() => {
+                          handleDelete(user.Id);
+                        }}
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         <i className="fa fa-trash" style={{ color: "red" }}></i>
@@ -211,29 +249,49 @@ export default function ViewLocations() {
         <MDBModalDialog style={{ borderRadius: 0 }}>
           <MDBModalContent id="card">
             <MDBModalHeader>
-              <MDBModalTitle>Update Street</MDBModalTitle>
+              <MDBModalTitle>Update User</MDBModalTitle>
               <MDBBtn
                 className="btn-close"
                 color="none"
                 onClick={toggleShow}
               ></MDBBtn>
             </MDBModalHeader>
-            <form onSubmit={UpdateLocation}>
+            <form onSubmit={handleUpdate}>
               <MDBModalBody>
                 <Form.Group className="mb-3">
-                  <p style={{ marginBottom: "0px", textAlign: "left" }}>
-                    Street
-                  </p>
                   <Form.Control
-                    type="text"
-                    placeholder="1234 Alpenstrasse, 3012 Bern, Switzerland"
+                    type="email"
+                    placeholder="Email"
                     size="lg"
                     id="card"
-                    value={street}
-                    onChange={handleStreet}
+                    value={email}
+                    onChange={handleEmail}
                     required
-                    style={{ borderRadius: 0, color: "black", flex: 1 }}
+                    style={{ borderRadius: 0, color: "black" }}
                   />
+                  <span id="email-error"></span>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <select
+                    className="form-control form-control-lg"
+                    id="card"
+                    value={location}
+                    onChange={handleLocation}
+                    style={{ borderRadius: 0, color: "black" }}
+                  >
+                    <option
+                      value=""
+                      disabled
+                      selected
+                      style={{ color: "#6f6f70" }}
+                    >
+                      Select Location
+                    </option>
+                    {data.map((location, index) => (
+                      <option value={location}>{location}</option>
+                    ))}
+                  </select>
+                  <span id="location-error"></span>
                 </Form.Group>
               </MDBModalBody>
 

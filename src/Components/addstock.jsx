@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./sidebar";
+import Usersidebar from "./usersidebar";
 import Cookies from "js-cookie";
 import {
   MDBCard,
@@ -10,7 +10,7 @@ import {
 } from "mdb-react-ui-kit";
 import Form from "react-bootstrap/Form";
 
-export default function Addlocation() {
+export default function AddStock() {
   const [show, setShow] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -62,7 +62,7 @@ export default function Addlocation() {
   return (
     <div className="siderow">
       <div className="sidecol1">
-        <Sidebar />
+        <Usersidebar />
       </div>
       <div className="sidecol2">
         <div className={`welcome-animation ${show ? "show" : ""}`}>
@@ -74,24 +74,24 @@ export default function Addlocation() {
               fontWeight: "bolder",
             }}
           >
-            Add Location
+            Add Inventory
           </h1>
           <MDBCard
-            style={{ borderRadius: 0, marginTop: "40px", margin: "5px" }}
+            style={{ borderRadius: 0, margin: "5px", marginTop: "40px" }}
             id="card"
           >
             <h4
               id="cardhead"
               style={{ textAlign: "left", padding: "15px", fontWeight: "bold" }}
             >
-              Location
+              Inventory
             </h4>
             <form onSubmit={handleLocation}>
               <MDBCardBody style={{ textAlign: "left" }}>
                 <Form.Group className="mb-3">
                   <Form.Control
                     type="text"
-                    placeholder="1234 Alpenstrasse, 3012 Bern, Switzerland"
+                    placeholder="Number of Sushi's"
                     size="lg"
                     id="card"
                     required

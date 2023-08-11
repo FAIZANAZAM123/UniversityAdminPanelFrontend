@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
-export default function Sidebar() {
+export default function Usersidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isdarkmode, setIsdarkmode] = useState(false);
 
@@ -68,13 +68,23 @@ export default function Sidebar() {
         <div className="flex flex-col items-center mt-3 border-t border-gray-700">
           <Link
             className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/dashboard")
+              isActiveLink("/location")
                 ? "bg-gray-500 text-gray-300"
                 : "hover:bg-gray-700 hover:text-gray-300"
             }`}
-            to="/dashboard"
+            to="/location"
           >
             <i className="fas fa-tachometer-alt fa-lg"></i>
+          </Link>
+          <Link
+            className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
+              isActiveLink("/add-inventory")
+                ? "bg-gray-500 text-gray-300"
+                : "hover:bg-gray-700 hover:text-gray-300"
+            }`}
+            to="/add-inventory"
+          >
+            <i class="fas fa-box"></i>
           </Link>
           <Link
             className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
@@ -84,49 +94,7 @@ export default function Sidebar() {
             }`}
             to="/add-location"
           >
-            <i className="fa fa-location fa-lg"></i>
-          </Link>
-          <Link
-            className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/view-locations")
-                ? "bg-gray-500 text-gray-300"
-                : "hover:bg-gray-700 hover:text-gray-300"
-            }`}
-            to="/view-locations"
-          >
-            <i className="fa fa-location"></i>
-          </Link>
-          <Link
-            className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/view-stock")
-                ? "bg-gray-500 text-gray-300"
-                : "hover:bg-gray-700 hover:text-gray-300"
-            }`}
-            to="/view-stock"
-          >
-            <i className="fas fa-chart-line"></i>
-          </Link>
-        </div>
-        <div class="flex flex-col items-center mt-2 border-t border-gray-700">
-          <Link
-            className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/add-users")
-                ? "bg-gray-500 text-gray-300"
-                : "hover:bg-gray-700 hover:text-gray-300"
-            }`}
-            to="/add-users"
-          >
-            <i className="fas fa-users"></i>
-          </Link>
-          <Link
-            className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/manage-users")
-                ? "bg-gray-500 text-gray-300"
-                : "hover:bg-gray-700 hover:text-gray-300"
-            }`}
-            to="/manage-users"
-          >
-            <i className="fas fa-users"></i>
+            <i class="fas fa-chart-line"></i>
           </Link>
         </div>
         <Link

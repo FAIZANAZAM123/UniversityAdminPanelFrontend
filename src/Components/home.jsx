@@ -7,7 +7,7 @@ export default function Home() {
   const [show, setShow] = useState(false);
   useEffect(() => {
     setShow(true);
-    if (Cookies.get("mode") === "false") {
+    if (Cookies.get("mode") == "light") {
       document.body.className = "light-mode";
     } else {
       document.body.className = "dark-mode";
@@ -21,17 +21,17 @@ export default function Home() {
       </div>
       <div className="sidecol2">
         <div className={`welcome-animation ${show ? "show" : ""}`}>
-          <h1
-            className="dashboard"
-            style={{
-              textAlign: "left",
-              paddingTop: "40px",
-              fontWeight: "bolder",
-            }}
-          >
-            Dashboard
-          </h1>
-          <MDBRow style={{ marginTop: "30px", margin: "5px" }}>
+          <MDBRow style={{ margin: "5px", marginTop: "30px" }}>
+            <h1
+              className="dashboard"
+              style={{
+                textAlign: "left",
+                paddingTop: "40px",
+                fontWeight: "bolder",
+              }}
+            >
+              Dashboard
+            </h1>
             <MDBCol md="4">
               <MDBCard style={{ marginTop: "5px", borderRadius: 0 }} id="card">
                 <MDBCardBody>
