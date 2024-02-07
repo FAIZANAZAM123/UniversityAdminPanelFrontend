@@ -3,6 +3,8 @@ import Sidebar from "./sidebar";
 import Cookies from "js-cookie";
 import { MDBCard, MDBCardBody, MDBBtn, MDBSpinner } from "mdb-react-ui-kit";
 import Form from "react-bootstrap/Form";
+import { saveLogs } from './logs';
+import axios from 'axios';
 
 export default function Myaccount() {
   const [show, setShow] = useState(false);
@@ -10,8 +12,7 @@ export default function Myaccount() {
   const [csubmit, setCSubmit] = useState(false);
   const [success, setSuccess] = useState(false);
   const [csuccess, setCSuccess] = useState(false);
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
+  const [username,setUsername]=useState("");
   const [email, setEmail] = useState("");
   const [previous, setPrevious] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -19,44 +20,18 @@ export default function Myaccount() {
 
   useEffect(() => {
     setShow(true);
+    setUsername(Cookies.get("adminName"));
+    setEmail(Cookies.get("adminEmail"));
     if (Cookies.get("mode") == "light") {
       document.body.className = "light-mode";
     } else {
       document.body.className = "dark-mode";
     }
-    getData();
   }, []);
 
-  async function getData() {
-    await fetch(`http://localhost:4000/getadmin`, {
-      method: "GET",
-      headers: {
-        "api-key": process.env.REACT_APP_API_KEY,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Request failed.");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setFname(data.data[0].firstname);
-        setLname(data.data[0].lastname);
-        setEmail(data.data[0].email);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+  const handleUsername=(event)=>{
+    setUsername(event.target.value);
   }
-
-  const handleFname = (event) => {
-    setFname(event.target.value);
-  };
-
-  const handleLname = (event) => {
-    setLname(event.target.value);
-  };
 
   const handleEmail = (event) => {
     setEmail(event.target.value);
@@ -72,82 +47,76 @@ export default function Myaccount() {
     setNewpass(event.target.value);
   };
 
-  const handleChange = async (event) => {
-    event.preventDefault();
+  const handleChange = async (e) => {
+    e.preventDefault();
     setSubmit(true);
-    await fetch(
-      `http://localhost:4000/updateadmin?email=${email}&fname=${fname}&lname=${lname}`,
-      {
-        method: "GET",
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/admin/v1/updateProfile`, formData, {
         headers: {
+          "Content-Type": "application/json", 
           "api-key": process.env.REACT_APP_API_KEY,
         },
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Request failed.");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.message == "updated") {
-          getData();
-          setSubmit(false);
-          setSuccess(true);
-          setTimeout(function () {
-            setSuccess(false);
-          }, 2000);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
       });
+      const responseData = response.data;
+      if(responseData.message=="updated"){
+        form.reset();
+        Cookies.set('adminName',username, { expires: 2 });
+        Cookies.set('adminEmail', email, { expires: 2 });
+        setSubmit(false);
+        setSuccess(true);
+        setTimeout(function () {
+          setSuccess(false);
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+      setSubmit(false);
+    }
   };
 
-  const handleCredentials = async (event) => {
-    event.preventDefault();
-    document.getElementById("error").style.display = "none";
-    if (confirm == newpass) {
+  const handleCredentials = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    if(confirm==newpass){
       setCSubmit(true);
-      await fetch(
-        `http://localhost:4000/updateacre?prev=${previous}&current=${confirm}&newpass=${newpass}`,
-        {
-          method: "GET",
+      try {
+        const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/admin/v1/updateCredentials`, formData, {
           headers: {
+            "Content-Type": "application/json", 
             "api-key": process.env.REACT_APP_API_KEY,
           },
-        }
-      )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Request failed.");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          if (data.message == "updated") {
-            setPrevious("");
-            setConfirm("");
-            setNewpass("");
-            setCSubmit(false);
-            setCSuccess(true);
-            setTimeout(function () {
-              setCSuccess(false);
-            }, 2000);
-          } else if (data.message == "incorrect") {
-            setCSubmit(false);
-            setCSuccess(false);
-            document.getElementById("error").innerHTML =
-              "Current Password is incorrect";
-            document.getElementById("error").style.color = "red";
-            document.getElementById("error").style.display = "block";
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
         });
-    } else {
+        const responseData = response.data;
+        if (responseData.message == "updated") {
+          setPrevious("");
+          setConfirm("");
+          setNewpass("");
+          setCSubmit(false);
+          setCSuccess(true);
+          setTimeout(function () {
+            setCSuccess(false);
+          }, 2000);
+        } else if (responseData.message == "invalid") {
+          setCSubmit(false);
+          setCSuccess(false);
+          document.getElementById("error").innerHTML =
+            "Current Password is incorrect";
+          document.getElementById("error").style.color = "red";
+          document.getElementById("error").style.display = "block";
+        }
+      } catch (error) {
+        console.error('Error:', error.message);
+        setSubmit(false);
+      }
+    }
+    else{
       document.getElementById("error").innerHTML =
         "Password & confirm Password must be same";
       document.getElementById("error").style.color = "red";
@@ -187,26 +156,15 @@ export default function Myaccount() {
                 <Form.Group className="mb-3">
                   <div className="d-flex flex-wrap">
                     <div className="mb-2 mb-lg-0 pe-lg-2 flex-grow-1">
-                      <p style={{ marginBottom: "0px" }}>First Name</p>
+                      <p style={{ marginBottom: "0px" }}>Name</p>
                       <Form.Control
                         type="text"
                         size="lg"
                         id="card"
-                        value={fname}
-                        onChange={handleFname}
+                        name="name"
+                        value={username}
+                        onChange={handleUsername}
                         required
-                        style={{ borderRadius: 0, color: "black" }}
-                      />
-                    </div>
-                    <div className="mb-2 mb-lg-0 ps-lg-2 flex-grow-1">
-                      <p style={{ marginBottom: "0px" }}>Last Name</p>
-                      <Form.Control
-                        type="text"
-                        size="lg"
-                        value={lname}
-                        onChange={handleLname}
-                        required
-                        id="card"
                         style={{ borderRadius: 0, color: "black" }}
                       />
                     </div>
@@ -221,6 +179,7 @@ export default function Myaccount() {
                         type="text"
                         size="lg"
                         id="card"
+                        name="email"
                         value={email}
                         onChange={handleEmail}
                         required
@@ -274,6 +233,7 @@ export default function Myaccount() {
                     placeholder="Current Password"
                     size="lg"
                     id="card"
+                    name="current"
                     value={previous}
                     onChange={handlePrevious}
                     required
@@ -287,6 +247,7 @@ export default function Myaccount() {
                     placeholder="New Password"
                     size="lg"
                     id="card"
+                    name="new"
                     value={newpass}
                     onChange={handleNewpass}
                     required

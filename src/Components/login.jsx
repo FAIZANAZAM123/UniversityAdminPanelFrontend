@@ -12,12 +12,12 @@ import Form from "react-bootstrap/Form";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Cookies from "js-cookie";
+import { saveLogs } from './logs';
 
 function Login() {
   const [submit, setSubmit] = useState(false);
   const [valid, setValid] = useState();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
 
   useEffect(() => {
     if (Cookies.get("mode") == "light") {
@@ -27,66 +27,40 @@ function Login() {
     }
   }, []);
 
-  const handleEmail = (event) => {
-    setEmail(event.target.value);
-    if (event.target.value.length == 0) {
-      event.target.style.backgroundColor = "#f6eacf";
-      event.target.style.border = "1px solid #daa93e";
-    } else {
-      event.target.style.backgroundColor = "#d1e4df";
-      event.target.style.border = "1px solid #579c89";
-    }
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handlePassword = (event) => {
-    setPassword(event.target.value);
-    if (event.target.value.length == 0) {
-      event.target.style.backgroundColor = "#f6eacf";
-      event.target.style.border = "1px solid #daa93e";
-    } else {
-      event.target.style.backgroundColor = "#d1e4df";
-      event.target.style.border = "1px solid #579c89";
-    }
-  };
+  const handleSignIn = async (e) => {
+    e.preventDefault();
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    setSubmit(true);
-    await fetch(
-      `http://localhost:4000/login?email=${email}&password=${password}`,
-      {
-        method: "GET",
+    try {
+      const response = await fetch("https://fresh-tropical-colony.glitch.me/adminsignin", {
+        method: "POST",
         headers: {
-          "api-key": process.env.REACT_APP_API_KEY,
+          "Content-Type": "application/json",
         },
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Request failed.");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.message == "seshad") {
-          Cookies.set("seshU", data.sesh_u, { expires: 2 });
-          window.location.href = `${process.env.REACT_APP_URL}`;
-        } else if (data.message == "seshus") {
-          Cookies.set("seshU", data.seshU, { expires: 2 });
-          Cookies.set("seshL", data.seshL, { expires: 2 });
-          window.location.href = `${process.env.REACT_APP_LOCATION}`;
-        } else if (data.message == "incorrect") {
-          setSubmit(false);
-          setValid(true);
-          setTimeout(function () {
-            setValid(false);
-          }, 2000);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+        body: JSON.stringify({ email, password }),
       });
+
+      if(response.ok)
+      {
+
+        localStorage.setItem('login',true);
+
+        window.location.href='/editcourses';
+        console.log("Sign-in successful");
+
+      }
+else {
+        console.error("Sign-in failed");
+      }
+    } catch (error) {
+      window.alert(error)
+      console.error("Error during sign-in:", error);
+    }
   };
+
+
 
   return (
     <div>
@@ -100,15 +74,15 @@ function Login() {
                 style={{ borderRadius: 0, maxWidth: "400px" }}
               >
                 <MDBCardBody className="p-5 w-100 d-flex flex-column">
-                  <form onSubmit={handleLogin}>
+                  <form >
                     <center>
                       <img
-                        src="./Assets/sushi.jpg"
+                        src="./Assets/logo.png"
                         alt="Sushi"
                         style={{
                           width: "180px",
                           borderRadius: "50%",
-                          height: "180px",
+                          height: "150px",
                         }}
                       />
                     </center>
@@ -116,23 +90,22 @@ function Login() {
                       Login
                     </h4>
                     <Form.Group className="mb-3">
-                      <Form.Control
+                    <Form.Control
+                        autoFocus
+                        required
                         type="email"
-                        placeholder="Email"
-                        size="lg"
+                        placeholder="example@company.com"
                         value={email}
-                        onChange={handleEmail}
-                        style={{ borderRadius: 0 }}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                      <Form.Control
+                    <Form.Control
+                        required
                         type="password"
                         placeholder="Password"
-                        size="lg"
                         value={password}
-                        onChange={handlePassword}
-                        style={{ borderRadius: 0 }}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </Form.Group>
                     <MDBBtn
@@ -150,7 +123,7 @@ function Login() {
                       ) : valid ? (
                         <span>Incorrect Login</span>
                       ) : (
-                        <span>Login</span>
+                        <span onClick={handleSignIn}>Login</span>
                       )}
                     </MDBBtn>
                   </form>
@@ -162,7 +135,7 @@ function Login() {
       </div>
       <footer className="footer">
         <p>
-          &copy; {new Date().getFullYear()} Sushi Company. All rights reserved.
+          &copy; {new Date().getFullYear()} Guess Game. All rights reserved.
         </p>
       </footer>
     </div>

@@ -3,16 +3,13 @@ import { useEffect } from 'react';
 import {Switch,Route} from 'react-router-dom';
 import Login from './Components/login';
 import Home from './Components/home';
-import Addlocation from './Components/addlocation';
-import ViewLocations from './Components/viewlocations';
-import Stock from './Components/stock';
-import Addusers from './Components/addusers';
-import Manageusers from './Components/manageusers';
+import Results from './Components/results';
+import ManageQuestions from './Components/manageQuestions';
 import Myaccount from './Components/myaccount';
-import Userhome from './Components/userhome';
-import AddStock from './Components/addstock';
+import Error from './Components/error';
+import Courses from './Components/Courses';
 import PrivateRoute from './Components/private';
-import PrivateUser from './Components/privateuser';
+import HomeEditForm from './Components/HomeEditForm';
 
 function App() {
   useEffect(()=>{
@@ -22,15 +19,16 @@ function App() {
     <div className="App">
      <Switch>
       <Route exact path="/" component={Login}/>
-      <PrivateUser exact path="/location" component={Userhome}/>
-      <PrivateUser  path="/add-inventory" component={AddStock}/>
-      <PrivateRoute path="/dashboard" component={Home}/>
-      <PrivateRoute path="/add-location" component={Addlocation}/>
-      <PrivateRoute path="/view-locations" component={ViewLocations}/>
-      <PrivateRoute path="/view-stock" component={Stock}/>
-      <PrivateRoute path="/add-users" component={Addusers}/>
-      <PrivateRoute path="/manage-users" component={Manageusers}/>
-      <PrivateRoute path="/my-accounts" component={Myaccount}/>
+      <Route path="/dashboard" component={Home}/>
+      <Route path="/edithome" component={Results}/>
+      <Route path="/editcourses" component={Courses}/>
+
+      <Route path="/manage-questions" component={ManageQuestions}/>
+      <Route path="/my-accounts" component={Myaccount}/>
+      <Route path="*" component={Error}/>
+
+      <Route path="/homeedit" component={HomeEditForm}/>
+
      </Switch>
     </div>
   );

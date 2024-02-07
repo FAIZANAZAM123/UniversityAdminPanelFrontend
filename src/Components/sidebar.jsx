@@ -76,57 +76,51 @@ export default function Sidebar() {
           >
             <i className="fas fa-tachometer-alt fa-lg"></i>
           </Link>
+        
           <Link
             className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/add-location")
+              isActiveLink("/Results")
                 ? "bg-gray-500 text-gray-300"
                 : "hover:bg-gray-700 hover:text-gray-300"
             }`}
-            to="/add-location"
+            to="/edithome"
           >
-            <i className="fa fa-location fa-lg"></i>
+            <i className="fa fa-home "></i>
           </Link>
+
           <Link
             className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/view-locations")
+              isActiveLink("/editcourses")
                 ? "bg-gray-500 text-gray-300"
                 : "hover:bg-gray-700 hover:text-gray-300"
             }`}
-            to="/view-locations"
+            to="/editcourses"
           >
-            <i className="fa fa-location"></i>
+            <i className="fa fa-book "></i>
           </Link>
+          
+
+
+
+
+
+
           <Link
             className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/view-stock")
+              isActiveLink("")
                 ? "bg-gray-500 text-gray-300"
                 : "hover:bg-gray-700 hover:text-gray-300"
             }`}
-            to="/view-stock"
+            onClick={()=>{
+              if(window.confirm("Are you sure you want to logout?")){
+                Cookies.remove("adminEmail");
+                Cookies.remove("adminName");
+                Cookies.remove("token");
+                window.location.href="/";
+              }
+            }}
           >
-            <i className="fas fa-chart-line"></i>
-          </Link>
-        </div>
-        <div class="flex flex-col items-center mt-2 border-t border-gray-700">
-          <Link
-            className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/add-users")
-                ? "bg-gray-500 text-gray-300"
-                : "hover:bg-gray-700 hover:text-gray-300"
-            }`}
-            to="/add-users"
-          >
-            <i className="fas fa-users"></i>
-          </Link>
-          <Link
-            className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/manage-users")
-                ? "bg-gray-500 text-gray-300"
-                : "hover:bg-gray-700 hover:text-gray-300"
-            }`}
-            to="/manage-users"
-          >
-            <i className="fas fa-users"></i>
+            <i className="fa fa-sign-out "></i>
           </Link>
         </div>
         <Link

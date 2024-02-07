@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
+import { saveLogs } from './logs';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const [check, setCheck] = useState(true);
@@ -10,31 +11,37 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     async function checker() {
       try {
         const response = await fetch(
-          `http://localhost:4000/checkuuid?seshU=${Cookies.get("seshU")}`,
-          {
-            method: "GET",
-            headers: {
-              "api-key": process.env.REACT_APP_API_KEY,
-            },
-          }
+            `${process.env.REACT_APP_BASE_URL}/authentication`,
+            {
+                method: "GET",
+                headers: {
+                    "api-key": process.env.REACT_APP_API_KEY,
+                    "authorization": Cookies.get("adtoken"),
+                },
+            }
         );
-
+    
         if (!response.ok) {
-          throw new Error("Request failed.");
+            if (response.status === 403) {
+                window.location.href = '/404';
+            } else {
+                throw new Error("Request failed.");
+            }
         }
-
+    
         const data = await response.json();
-
-        if (data.message === "admin") {
-          setCheck(false);
-          setValid(true);
-        } else if (data.message === "invalid") {
-          setCheck(false);
-          setValid(false);
+    
+        if (data.message === "succeed") {
+            setCheck(false);
+            setValid(true);
+        } else {
+            setCheck(false);
+            setValid(false);
         }
-      } catch (error) {
+    } catch (error) {
         console.error("Error:", error);
-      }
+        saveLogs(error.message,'/private',"Admin");
+    }    
     }
 
     checker();
@@ -44,7 +51,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        check ? null : valid ? <Component {...props} /> : <Redirect to="/" />
+        check ? null : valid ? <Component {...props} /> : <Redirect to="/404" />
       }
     />
   );
