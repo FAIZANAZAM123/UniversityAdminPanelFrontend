@@ -87,6 +87,16 @@ export default function Sidebar() {
           >
             <i className="fa fa-home "></i>
           </Link>
+          <Link
+            className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
+              isActiveLink("/pre")
+                ? "bg-gray-500 text-gray-300"
+                : "hover:bg-gray-700 hover:text-gray-300"
+            }`}
+            to="/pre"
+          >
+            <i className="fa fa-eye "></i>
+          </Link>
 
           <Link
             className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
