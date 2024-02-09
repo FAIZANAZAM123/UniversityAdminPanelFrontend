@@ -129,11 +129,18 @@ body.dark-mode .cards
   background-color: #1f2937;
 }
 
-
 body.dark-mode label
 {
-  color: black;
+  color: white !important;
 }
+
+body.dark-mode .chang
+{
+  color: black !important;
+}
+
+
+
 body.light-mode #sidebar{
 
   border-right: 1px solid black;

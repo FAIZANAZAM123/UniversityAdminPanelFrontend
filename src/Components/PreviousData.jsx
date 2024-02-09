@@ -537,7 +537,7 @@ export default function PreviousData() {
                                 <Row className="mb-3 justify-center">
                                     <Col md={6}>
                                         <Form.Group controlId="videoFile">
-                                            <Form.Label className="ondark">Upload Video File</Form.Label>
+                                            <Form.Label  className="ondark">Upload Video File</Form.Label>
                                             <Form.Control
                                                 onChange={handleFileChange}
                                                 required
@@ -582,16 +582,16 @@ export default function PreviousData() {
                         <Modal.Body>
                             <Form onSubmit={handleFormSubmit4}>
                                 <Form.Group className="mb-3" controlId="quote">
-                                    <Form.Label>Title</Form.Label>
+                                    <Form.Label className="chang">Title</Form.Label>
                                     <Form.Control type="text" value={formData4.title} onChange={(e) => setFormData4({ ...formData4, title: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="description">
-                                    <Form.Label>Subtitle</Form.Label>
+                                    <Form.Label className="chang">Subtitle</Form.Label>
                                     <Form.Control type="text" value={formData4.subtitle} onChange={(e) => setFormData4({ ...formData4, subtitle: e.target.value })} />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="image">
-                                    <Form.Label>Image</Form.Label>
+                                    <Form.Label className="chang">Image</Form.Label>
                                     <Form.Control type="file" onChange={handleImageChange4} />
                                 </Form.Group>
                                 <Button variant="primary" type="submit">
@@ -627,16 +627,16 @@ export default function PreviousData() {
                         <Modal.Body>
                             <Form onSubmit={handleFormSubmit5}>
                                 <Form.Group className="mb-3" controlId="quote">
-                                    <Form.Label>Title</Form.Label>
+                                    <Form.Label className="chang">Title</Form.Label>
                                     <Form.Control type="text" value={formData5.title} onChange={(e) => setFormData5({ ...formData5, title: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="description">
-                                    <Form.Label>Subtitle</Form.Label>
+                                    <Form.Label className="chang">Subtitle</Form.Label>
                                     <Form.Control type="text" value={formData5.subtitle} onChange={(e) => setFormData5({ ...formData5, subtitle: e.target.value })} />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="image">
-                                    <Form.Label>Image</Form.Label>
+                                    <Form.Label className="chang">Image</Form.Label>
                                     <Form.Control type="file" onChange={handleImageChange5} />
                                 </Form.Group>
                                 <Button variant="primary" type="submit">
@@ -671,19 +671,19 @@ export default function PreviousData() {
                         <Modal.Body>
                             <Form onSubmit={handleFormSubmit}>
                                 <Form.Group className="mb-3" controlId="quote">
-                                    <Form.Label>Quote</Form.Label>
+                                    <Form.Label className="chang">Quote</Form.Label>
                                     <Form.Control type="text" value={formData.Quote} onChange={(e) => setFormData({ ...formData, Quote: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="description">
-                                    <Form.Label>Description</Form.Label>
+                                    <Form.Label className="chang">Description</Form.Label>
                                     <Form.Control type="text" value={formData.Description} onChange={(e) => setFormData({ ...formData, Description: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="name">
-                                    <Form.Label>Name</Form.Label>
+                                    <Form.Label className="chang">Name</Form.Label>
                                     <Form.Control type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="image">
-                                    <Form.Label>Image</Form.Label>
+                                    <Form.Label className="chang">Image</Form.Label>
                                     <Form.Control type="file" onChange={handleImageChange} />
                                 </Form.Group>
                                 <Button variant="primary" type="submit">
@@ -722,19 +722,19 @@ export default function PreviousData() {
                         <Modal.Body>
                             <Form onSubmit={handleFormSubmit1}>
                                 <Form.Group className="mb-3" controlId="quote">
-                                    <Form.Label>Quote</Form.Label>
+                                    <Form.Label className="chang">Quote</Form.Label>
                                     <Form.Control type="text" value={formData1.Quote} onChange={(e) => setFormData1({ ...formData1, Quote: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="description">
-                                    <Form.Label>Description</Form.Label>
+                                    <Form.Label className="chang">Description</Form.Label>
                                     <Form.Control type="text" value={formData1.Description} onChange={(e) => setFormData1({ ...formData1, Description: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="name">
-                                    <Form.Label>Name</Form.Label>
+                                    <Form.Label className="chang">Name</Form.Label>
                                     <Form.Control type="text" value={formData1.name} onChange={(e) => setFormData1({ ...formData1, name: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="image">
-                                    <Form.Label>Image</Form.Label>
+                                    <Form.Label className="chang">Image</Form.Label>
                                     <Form.Control type="file" onChange={handleImageChange1} />
                                 </Form.Group>
                                 <Button variant="primary" type="submit">
@@ -764,15 +764,15 @@ export default function PreviousData() {
                         <Modal.Body>
                             <Form onSubmit={handleFormSubmit2}>
                                 <Form.Group className="mb-3" controlId="title">
-                                    <Form.Label>Title</Form.Label>
+                                    <Form.Label className="chang">Title</Form.Label>
                                     <Form.Control type="text" value={formData2.title} onChange={(e) => setFormData2({ ...formData2, title: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="description">
-                                    <Form.Label>Description</Form.Label>
+                                    <Form.Label className="chang">Description</Form.Label>
                                     <Form.Control type="text" value={formData2.description} onChange={(e) => setFormData2({ ...formData2, description: e.target.value })} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="image">
-                                    <Form.Label>Image</Form.Label>
+                                    <Form.Label className="chang">Image</Form.Label>
                                     <Form.Control type="file" onChange={handleImageChange2} />
                                 </Form.Group>
                                 <Button variant="primary" type="submit">Save</Button>
