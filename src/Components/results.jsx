@@ -67,7 +67,7 @@ export default function Results() {
 
       formData.append("videoFile", videoFile);
 
-      const response = await fetch("https://fresh-tropical-colony.glitch.me/edithomevideo", {
+      const response = await fetch("https://three-root-arthropod.glitch.me/edithomevideo", {
         method: "POST",
         body: formData,
       });
@@ -155,7 +155,7 @@ export default function Results() {
       formData.append('paragraph', paragraph);
 
 
-      const response = await fetch('https://fresh-tropical-colony.glitch.me/addScholar', {
+      const response = await fetch('https://three-root-arthropod.glitch.me/addScholar', {
         method: 'POST',
         body: formData,
       });
@@ -184,7 +184,7 @@ export default function Results() {
       formData.append('paragraph1', paragraph1);
 
 
-      const response = await fetch('https://fresh-tropical-colony.glitch.me/addcampuslife', {
+      const response = await fetch('https://three-root-arthropod.glitch.me/addcampuslife', {
         method: 'POST',
         body: formData,
       });
@@ -214,7 +214,7 @@ export default function Results() {
       formData.append('name', namee);
 
 
-      const response = await fetch('https://fresh-tropical-colony.glitch.me/addgraduate', {
+      const response = await fetch('https://three-root-arthropod.glitch.me/addgraduate', {
         method: 'POST',
         body: formData,
       });
@@ -246,7 +246,7 @@ export default function Results() {
 
 
 
-      const response = await fetch('https://fresh-tropical-colony.glitch.me/addEducator', {
+      const response = await fetch('https://three-root-arthropod.glitch.me/addEducator', {
         method: 'POST',
         body: formData,
       });
@@ -269,7 +269,7 @@ export default function Results() {
   const handleSubmit5 = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch('https://fresh-tropical-colony.glitch.me/internationaloffice', {
+      const response = await fetch('https://three-root-arthropod.glitch.me/internationaloffice', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -319,7 +319,7 @@ export default function Results() {
       } formData.append('description', description3);
 
 
-      const response = await fetch('https://fresh-tropical-colony.glitch.me/addpartners', {
+      const response = await fetch('https://three-root-arthropod.glitch.me/addpartners', {
         method: 'POST',
         body: formData,
       });

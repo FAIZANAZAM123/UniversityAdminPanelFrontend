@@ -518,6 +518,11 @@ export default function PreviousData() {
                     <Sidebar />
                 </div>
 
+
+
+<center>
+                <div className="sidecol2  ">
+
                 <Container>
                     <h2 className="mt-3 mb-3">Previous Home Video</h2>
                     {previousVideos === '' ? (
@@ -530,7 +535,7 @@ export default function PreviousData() {
                         </Row>
                     )}
 
-                    <Card border="light" className=" cards mt-2   shadow-sm mb-4">
+                    <Card border="light" className=" justify-center cards mt-2   shadow-sm mb-4">
                         <Card.Body>
                             <h5 className="mb-4">Edit Home Video</h5>
                             <Form >
@@ -561,7 +566,7 @@ export default function PreviousData() {
 
                 <Container>
                     <h2 className="mt-5 text-center">Scholorships</h2>
-                    <Row xs={1} md={2} lg={4} className="g-4 ">
+                    <Row xs={1} md={2} lg={4} className="g-4 justify-center ">
                         {scholar && scholar.map((scholar) => (
                             <Col key={scholar._id}>
                                 <Card className="h-100 shadow">
@@ -606,7 +611,7 @@ export default function PreviousData() {
              */}
                 <Container>
                     <h2 className="mt-5 text-center">Campus Life</h2>
-                    <Row xs={1} md={2} lg={4} className="g-4 ">
+                    <Row xs={1} md={2} lg={4} className="g-4 justify-center ">
                         {campus && campus.map((campus) => (
                             <Col key={campus._id}>
                                 <Card className="h-100 shadow">
@@ -649,7 +654,7 @@ export default function PreviousData() {
 
                 <Container>
                     <h2 className="mt-5 text-center">Graduates</h2>
-                    <Row xs={1} md={2} lg={4} className="g-4 ">
+                    <Row xs={1} md={2} lg={4} className="g-4 justify-center ">
                         {graduates && graduates.map((graduate) => (
                             <Col key={graduate._id}>
                                 <Card className="h-100 shadow">
@@ -696,7 +701,7 @@ export default function PreviousData() {
 
 
                 <Container>
-                    <h2 className="mt-5 text-center">Educators</h2>
+                    <h2 className="mt-5 text-center justify-center">Educators</h2>
                     <Row xs={1} md={2} lg={4} className="g-4 ">
                         {educators && Array.isArray(educators) && educators.map((educators) => (
                             <Col key={educators._id}>
@@ -749,7 +754,7 @@ export default function PreviousData() {
                     <h2 className="mt-5 text-center">Partners</h2>
                     <h2 className="mt-5 text-center">{partners.title}</h2>
                     <p className="text-center">{partners.description}</p>
-                    <Row xs={1} md={2} lg={4} className="g-4">
+                    <Row xs={1} md={2} lg={4} className="g-4 justify-center">
                         {partners && Array.isArray(partners.images) && partners.images.map((image, index) => (
                             <Col key={index}>
                                 <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${image}`} style={{ height: '250px' }} className="partner-img w-100" />
@@ -781,9 +786,11 @@ export default function PreviousData() {
                     </Modal>
                 </Container>
 
+                </div>
+
+            </center>
 
             </div>
-
 
 
 

@@ -34,7 +34,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://fresh-tropical-colony.glitch.me/adminsignin", {
+      const response = await fetch("https://three-root-arthropod.glitch.me/adminsignin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

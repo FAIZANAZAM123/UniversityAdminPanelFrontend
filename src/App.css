@@ -170,6 +170,13 @@ body.light-mode button{
   width:90%;
 }
 
+@media (max-width:770px)
+{
+  .sidecol2{
+    margin-left:40px;
+  }
+}
+
 .dashboard{
   font-size: 50px;
 }
