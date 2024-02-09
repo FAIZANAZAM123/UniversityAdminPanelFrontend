@@ -47,12 +47,14 @@ function Login() {
 
         localStorage.setItem('login',true);
 
-        window.location.href='/editcourses';
+        window.location.href='/dashboard';
         console.log("Sign-in successful");
+        window.alert('Sign-in successful');
 
       }
 else {
         console.error("Sign-in failed");
+        window.alert('invalid Credentials');
       }
     } catch (error) {
       window.alert(error)
@@ -74,7 +76,7 @@ else {
                 style={{ borderRadius: 0, maxWidth: "400px" }}
               >
                 <MDBCardBody className="p-5 w-100 d-flex flex-column">
-                  <form >
+                  <form onSubmit={handleSignIn} >
                     <center>
                       <img
                         src="./Assets/logo.svg"
@@ -123,7 +125,7 @@ else {
                       ) : valid ? (
                         <span>Incorrect Login</span>
                       ) : (
-                        <span onClick={handleSignIn}>Login</span>
+                        <span >Login</span>
                       )}
                     </MDBBtn>
                   </form>

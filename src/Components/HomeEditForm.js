@@ -20,7 +20,13 @@ import { saveLogs } from './logs';
 function HomeEditForm() {
 
 
-
+    useEffect(() => {
+        if (Cookies.get("mode") == "light") {
+          document.body.className = "light-mode";
+        } else {
+          document.body.className = "dark-mode";
+        }
+      }, []);
     const [videoFile, setVideoFile] = useState(null);
 
     const handleFileChange = (event) => {

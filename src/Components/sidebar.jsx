@@ -79,7 +79,7 @@ export default function Sidebar() {
         
           <Link
             className={`flex items-center justify-center w-12 h-12 mt-2 rounded ${
-              isActiveLink("/Results")
+              isActiveLink("/edithome")
                 ? "bg-gray-500 text-gray-300"
                 : "hover:bg-gray-700 hover:text-gray-300"
             }`}
@@ -126,6 +126,7 @@ export default function Sidebar() {
                 Cookies.remove("adminEmail");
                 Cookies.remove("adminName");
                 Cookies.remove("token");
+                localStorage.removeItem('login')
                 window.location.href="/";
               }
             }}

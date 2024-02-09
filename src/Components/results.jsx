@@ -644,7 +644,7 @@ export default function Results() {
             </div>
 
 
-            <div className="card cards   shadow-sm mb-4">
+            {/* <div className="card cards   shadow-sm mb-4">
               <div className="card-body">
                 <h5 className="mb-4">Edit International Office</h5>
                 <form>
@@ -693,7 +693,7 @@ export default function Results() {
                   </div>
                 </form>
               </div>
-            </div>
+            </div> */}
 
             <div className="card  cards  shadow-sm mb-4">
               <div className="card-body">

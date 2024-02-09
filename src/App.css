@@ -129,18 +129,27 @@ body.dark-mode .cards
   background-color: #1f2937;
 }
 
-body.dark-mode .lab
-{
-  color: white;
-}
+
 body.dark-mode label
 {
-  color: white;
+  color: black;
 }
 body.light-mode #sidebar{
 
   border-right: 1px solid black;
 }
+
+body.dark-mode .ondark
+{
+  color: white;
+}
+
+body.light-mode button{
+  background-color: #313A50;
+  color: white;
+}
+
+
 
 .siderow{
   display: flex;
@@ -158,6 +167,11 @@ body.light-mode #sidebar{
   font-size: 50px;
 }
 
+body.dark-mode .modal-title
+{
+  color: black;
+}
+
 @media only screen and (max-width: 600px) {
   .sidecol1{
     width:19%;
@@ -172,3 +186,7 @@ body.light-mode #sidebar{
 }
 
 
+.videos{
+
+  width: 70%;
+}

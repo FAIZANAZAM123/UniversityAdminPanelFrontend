@@ -15,7 +15,13 @@ export default function PreviousData() {
 
     const [partners, setpartners] = useState([]);
 
-
+    useEffect(() => {
+        if (Cookies.get("mode") == "light") {
+          document.body.className = "light-mode";
+        } else {
+          document.body.className = "dark-mode";
+        }
+      }, []);
     useEffect(() => {
         const fetchPreviousVideos = async () => {
             try {
@@ -517,21 +523,21 @@ export default function PreviousData() {
                     {previousVideos === '' ? (
                         <p>No previous videos available.</p>
                     ) : (
-                        <Row className="justify-center">
-                            <Col>
-                                <video src={`https://three-root-arthropod.glitch.me/${previousVideos}`} height="300" controls autoPlay loop />
+                        <Row className="justify-center mx-auto">
+                            <Col className="ms-auto">
+                                <video  className="videos mx-auto" src={`https://three-root-arthropod.glitch.me/${previousVideos}`}  height="300" controls autoPlay loop />
                             </Col>
                         </Row>
                     )}
 
-                    <Card border="light" className=" cards   shadow-sm mb-4">
+                    <Card border="light" className=" cards mt-2   shadow-sm mb-4">
                         <Card.Body>
                             <h5 className="mb-4">Edit Home Video</h5>
                             <Form >
-                                <Row className="mb-3">
+                                <Row className="mb-3 justify-center">
                                     <Col md={6}>
                                         <Form.Group controlId="videoFile">
-                                            <Form.Label>Upload Video File</Form.Label>
+                                            <Form.Label className="ondark">Upload Video File</Form.Label>
                                             <Form.Control
                                                 onChange={handleFileChange}
                                                 required
@@ -542,7 +548,7 @@ export default function PreviousData() {
                                     </Col>
                                 </Row>
                                 <div className="mt-3">
-                                    <Button onClick={handleSubmit} variant="primary" type="submit">
+                                    <Button onClick={handleSubmit} variant="light" type="submit">
                                         Update
                                     </Button>
                                 </div>
@@ -553,23 +559,17 @@ export default function PreviousData() {
                 </Container>
 
 
-
-
-
-
-
-
                 <Container>
                     <h2 className="mt-5 text-center">Scholorships</h2>
-                    <Row xs={1} md={2} lg={3} className="g-4 ">
+                    <Row xs={1} md={2} lg={4} className="g-4 ">
                         {scholar && scholar.map((scholar) => (
                             <Col key={scholar._id}>
                                 <Card className="h-100 shadow">
-                                    <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${scholar.Image}`} style={{ height: '300px' }} className="graduate-img  w-100" />
+                                    <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${scholar.Image}`} style={{ height: '250px' }} className="graduate-img  w-100" />
                                     <Card.Body className="cards">
                                         <Card.Title>{scholar.title}</Card.Title>
                                         <Card.Text>{scholar.subtitle}</Card.Text>
-                                        <Button variant="primary" onClick={() => handleUpdateClick4(scholar)}>Update</Button>
+                                        <Button variant="light" onClick={() => handleUpdateClick4(scholar)}>Update</Button>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -602,24 +602,19 @@ export default function PreviousData() {
                     </Modal>
                 </Container>
 
-
-
                 {/* Campus Life
              */}
-
-
-
                 <Container>
                     <h2 className="mt-5 text-center">Campus Life</h2>
-                    <Row xs={1} md={2} lg={3} className="g-4 ">
+                    <Row xs={1} md={2} lg={4} className="g-4 ">
                         {campus && campus.map((campus) => (
                             <Col key={campus._id}>
                                 <Card className="h-100 shadow">
-                                    <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${campus.Image}`} style={{ height: '300px' }} className="graduate-img  w-100" />
+                                    <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${campus.Image}`} style={{ height: '250px' }} className="graduate-img  w-100" />
                                     <Card.Body className="cards">
                                         <Card.Title>{campus.title1}</Card.Title>
                                         <Card.Text>{campus.subtitle1}</Card.Text>
-                                        <Button variant="primary" onClick={() => handleUpdateClick5(campus)}>Update</Button>
+                                        <Button variant="light" onClick={() => handleUpdateClick5(campus)}>Update</Button>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -652,33 +647,18 @@ export default function PreviousData() {
                     </Modal>
                 </Container>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <Container>
                     <h2 className="mt-5 text-center">Graduates</h2>
-                    <Row xs={1} md={2} lg={3} className="g-4 ">
+                    <Row xs={1} md={2} lg={4} className="g-4 ">
                         {graduates && graduates.map((graduate) => (
                             <Col key={graduate._id}>
                                 <Card className="h-100 shadow">
-                                    <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${graduate.Image}`} style={{ height: '300px' }} className="graduate-img  w-100" />
+                                    <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${graduate.Image}`} style={{ height: '250px' }} className="graduate-img  w-100" />
                                     <Card.Body className="cards">
                                         <Card.Title>{graduate.Name}</Card.Title>
                                         <Card.Text>{graduate.Description}</Card.Text>
                                         <Card.Text>{graduate.Quote}</Card.Text>
-                                        <Button variant="primary" onClick={() => handleUpdateClick(graduate)}>Update</Button>
+                                        <Button variant="light" onClick={() => handleUpdateClick(graduate)}>Update</Button>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -717,17 +697,17 @@ export default function PreviousData() {
 
                 <Container>
                     <h2 className="mt-5 text-center">Educators</h2>
-                    <Row xs={1} md={2} lg={3} className="g-4 ">
+                    <Row xs={1} md={2} lg={4} className="g-4 ">
                         {educators && Array.isArray(educators) && educators.map((educators) => (
                             <Col key={educators._id}>
                                 <Card className="h-100 cards shadow">
-                                    <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${educators.Image}`} style={{ height: '300px' }} className="graduate-img  w-100" />
+                                    <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${educators.Image}`} style={{ height: '250px' }} className="graduate-img  w-100" />
                                     <Card.Body>
                                         <Card.Title>{educators.Name}</Card.Title>
                                         <Card.Text>{educators.Description}</Card.Text>
                                         <Card.Text>{educators.Quote}</Card.Text>
 
-                                        <Button variant="primary" onClick={() => handleUpdateClick1(educators)}>Update</Button>
+                                        <Button variant="light" onClick={() => handleUpdateClick1(educators)}>Update</Button>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -765,20 +745,15 @@ export default function PreviousData() {
                     </Modal>
                 </Container>
 
-
-
-
-
-
                 <Container>
                     <h2 className="mt-5 text-center">Partners</h2>
                     <h2 className="mt-5 text-center">{partners.title}</h2>
                     <p className="text-center">{partners.description}</p>
-                    <Row xs={1} md={2} lg={3} className="g-4">
+                    <Row xs={1} md={2} lg={4} className="g-4">
                         {partners && Array.isArray(partners.images) && partners.images.map((image, index) => (
                             <Col key={index}>
-                                <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${image}`} style={{ height: '300px' }} className="partner-img w-100" />
-                                <Button variant="primary" className="mt-3" onClick={() => handleUpdateClick3(image)}>Update</Button>
+                                <Card.Img variant="top" src={`https://three-root-arthropod.glitch.me/${image}`} style={{ height: '250px' }} className="partner-img w-100" />
+                                <Button variant="light" className="mt-3" onClick={() => handleUpdateClick3(image)}>Update</Button>
                             </Col>
                         ))}
                     </Row>
